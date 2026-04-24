@@ -14,5 +14,9 @@ def health():
 def price():
     return render_template("price.html")
 
+@app.route("/babadiama")
+def babadiama():
+    return render_template("babadiama.html")
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
