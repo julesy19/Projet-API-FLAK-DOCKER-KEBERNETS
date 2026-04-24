@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Price List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #eef2f3, #dfe9f3);
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        thead {
+            background: #4CAF50;
+            color: white;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            text-align: center;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #eee;
+            transition: 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        th {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .cat-tech { background: #2196F3; }
+        .cat-food { background: #FF9800; }
+        .cat-clothes { background: #9C27B0; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>💰 Product Price List</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Origin</th>
+                <th>Price ($)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Laptop</td>
+                <td><span class="badge cat-tech">Tech</span></td>
+                <td>USA</td>
+                <td class="price">1200</td>
+            </tr>
+
+            <tr>
+                <td>Rice</td>
+                <td><span class="badge cat-food">Food</span></td>
+                <td>India</td>
+                <td class="price">25</td>
+            </tr>
+
+            <tr>
+                <td>T-Shirt</td>
+                <td><span class="badge cat-clothes">Clothes</span></td>
+                <td>China</td>
+                <td class="price">15</td>
+            </tr>
+
+            <tr>
+                <td>Smartphone</td>
+                <td><span class="badge cat-tech">Tech</span></td>
+                <td>South Korea</td>
+                <td class="price">900</td>
+            </tr>
+
+            <tr>
+                <td>Coffee</td>
+                <td><span class="badge cat-food">Food</span></td>
+                <td>Brazil</td>
+                <td class="price">10</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
