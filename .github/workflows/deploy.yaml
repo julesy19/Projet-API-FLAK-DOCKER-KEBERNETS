@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Récupérer le code
+    - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Login DockerHub
@@ -19,7 +19,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/app-ker:latest .
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/flask-k8s-app:latest .
 
     - name: Push image
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/app-ker:latest
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/flask-k8s-app:latest
