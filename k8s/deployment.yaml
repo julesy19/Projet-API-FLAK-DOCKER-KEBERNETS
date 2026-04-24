@@ -13,13 +13,7 @@ spec:
         app: flask-app
     spec:
       containers:
-      - name: flask-container
-        image: babo12/flask-k8s-app:latest
-        ports:
-        - containerPort: 5000
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 5000
-          initialDelaySeconds: 5
-          periodSeconds: 10
+        - name: flask-container
+          image: 740631383378.dkr.ecr.us-west-1.amazonaws.com/babo10-app
+          ports:
+            - containerPort: 5000
