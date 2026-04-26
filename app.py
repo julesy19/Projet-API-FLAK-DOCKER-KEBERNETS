@@ -2,10 +2,12 @@ from flask import Flask, render_template
 from scanner import scan_all
 app = Flask(__name__)
 
+
 @app.route("/")
 def dashboard():
     data = scan_all()
     return render_template("dashboard.html", data=data)
+
 
 
 @app.route("/price")
@@ -17,8 +19,7 @@ def babadiama():
     return render_template("babadiama.html")
 
 
-
-
+from scanner import scan_all
 
 
 

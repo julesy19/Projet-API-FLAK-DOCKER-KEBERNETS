@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AWS Cloud Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #eef2f3, #dfe9f3);
+    margin: 0;
+    padding: 40px;
+    color: #222; /* texte plus lisible */
+}
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1a1a1a; /* plus foncé et net */
+}
+
+th {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: white;
+}
+
+td {
+    color: #333; /* texte des cellules plus lisible */
+}
+.price {
+    font-weight: bold;
+    color: #1b5e20; /* vert plus profond */
+    font-size: 15px;
+}
+tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+.metric-card { text-align:center; padding:20px; }
+.metric-value { font-size:1.6rem; font-weight:bold; }
+.metric-label { color:#94a3b8; }
+.section-title { font-size:1.3rem; margin-bottom:15px; }
+</style>
+</head>
+
+<body>
+<div class="container py-4">
+
+<!-- HEADER -->
+<div class="d-flex justify-content-between mb-4">
+    <div>
+        <h2>☁️ AWS Cloud Dashboard</h2>
+        <small class="text-muted">Infrastructure • Monitoring • Cost</small>
+    </div>
+</div>
+
+<!-- GLOBAL METRICS -->
+<div class="row g-3 mb-4">
+
+    {% for label, value, color in [
+        ('IAM', data.iam_users|length, 'primary'),
+        ('S3', data.s3_buckets|length, 'success'),
+        ('EC2', data.ec2_instances|length, 'warning'),
+        ('RDS', data.rds|length, 'info'),
+        ('Lambda', data.lambda|length, 'secondary'),
+        ('VPC', data.vpcs|length, 'danger'),
+        ('ECR', data.ecr|length, 'light'),
+        ('EKS', data.eks|length, 'light')
+    ] %}
+    <div class="col-md-3 col-lg-2">
+        <div class="card metric-card">
+            <div class="metric-value text-{{color}}">{{ value }}</div>
+            <div class="metric-label">{{ label }}</div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+<!-- COST SECTION -->
+<div class="card p-3 mb-4">
+    <div class="section-title text-warning">💰 Monthly Cost</div>
+    {% for c in data.costs or [] %}
+        <div class="d-flex justify-content-between">
+            <span>{{ c.service }}</span>
+            <strong>${{ c.cost }}</strong>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- INFRASTRUCTURE -->
+<div class="row g-4">
+
+<!-- IAM -->
+<div class="col-md-6">
+<div class="card p-3">
+<div class="section-title text-primary">👤 IAM</div>
+{% for user in data.iam_users or [] %}
+<div class="d-flex justify-content-between">
+    <span>{{ user.username }}</span>
+    <span class="badge bg-{{ 'success' if user.mfa == 'ENABLED' else 'danger' }}">
+        {{ user.mfa }}
+    </span>
+</div>
+{% endfor %}
+</div>
+</div>
+
+<!-- EC2 -->
+<div class="col-md-6">
+<div class="card p-3">
+<div class="section-title text-warning">🖥 EC2</div>
+{% for i in data.ec2_instances or [] %}
+<p>{{ i.id }} - {{ i.state }} ({{ i.region }})</p>
+{% endfor %}
+</div>
+</div>
+
+<!-- RDS -->
+<div class="col-md-6">
+<div class="card p-3">
+<div class="section-title text-info">🗄 RDS</div>
+{% for db in data.rds or [] %}
+<p>{{ db.id }} ({{ db.region }})</p>
+{% endfor %}
+</div>
+</div>
+
+<!-- LAMBDA -->
+<div class="col-md-6">
+<div class="card p-3">
+<div class="section-title text-secondary">⚡ Lambda</div>
+{% for l in data.lambda or [] %}
+<p>{{ l.name }} ({{ l.region }})</p>
+{% endfor %}
+</div>
+</div>
+
+<!-- VPC -->
+<div class="col-md-6">
+<div class="card p-3">
+<div class="section-title text-danger">🌐 VPC</div>
+{% for v in data.vpcs or [] %}
+<p>{{ v.id }} ({{ v.region }})</p>
+{% endfor %}
+</div>
+</div>
+
+<!-- ECR -->
+<div class="col-md-6">
+<div class="card p-3">
+<div class="section-title">🐳 ECR</div>
+{% for repo in data.ecr or [] %}
+<p>{{ repo.name }} ({{ repo.region }})</p>
+{% endfor %}
+</div>
+</div>
+
+<!-- EKS -->
+<div class="col-md-6">
+<div class="card p-3">
+<div class="section-title">☸️ EKS</div>
+{% for c in data.eks or [] %}
+<p>{{ c.name }} - {{ c.status }} ({{ c.region }})</p>
+{% endfor %}
+</div>
+</div>
+
+<!-- CLOUDWATCH -->
+<div class="col-md-6">
+<div class="card p-3">
+<div class="section-title">📊 CloudWatch</div>
+{% for cw in data.cloudwatch or [] %}
+<p>{{ cw.region }} → {{ cw.metrics_count }} metrics</p>
+{% endfor %}
+</div>
+</div>
+
+</div>
+
+</div>
+</body>
+</html>
